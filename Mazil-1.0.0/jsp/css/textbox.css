@@ -1,0 +1,25 @@
+.place{
+ 	float:inherit;
+  margin-left:-25%;
+}
+.textbox{ 
+background: #F1F1F1  no-repeat;
+background-position: 5px -7px !important;
+padding: 10px 10px 10px 25px;
+width: 190px;
+border: 1px solid #CCC;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
+border-radius: 5px;
+-moz-box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+-webkit-box-shadow: 0 1px 1px #CCC inset, 0 1px 0 #FFF;
+box-shadow: 0 1px 1px #CCC inset, 0 1px 0 #FFF;
+} 
+.textbox:focus { 
+background-color: #FFF; 
+border-color: #E8C291; 
+outline: none; 
+-moz-box-shadow: 0 0 0 1px #e8c291 inset; 
+-webkit-box-shadow: 0 0 0 1px #E8C291 inset; 
+box-shadow: 0 0 0 1px #E8C291 inset; 
+} 

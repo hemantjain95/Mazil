@@ -1,0 +1,125 @@
+/* ===========================================================
+   <!-- The MIT License (MIT)
+
+Copyright (c) IIIT-DELHI 
+authors:
+HEMANT JAIN "hjcooljohny75@gmail.com"
+ANIRUDH NAIN 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE. -->
+
+ * ========================================================== */
+
+@CHARSET "ISO-8859-1";
+
+.bootstrap-checkbox > button.btn{
+	padding:7px 0 4px 2px;
+	width:28px;
+}
+.bootstrap-checkbox > button.btn.displayAsButton{
+	width:auto;
+}
+.bootstrap-checkbox > button.btn.displayAsButton > span.label-checkbox{
+	padding:0 8px 0 4px;
+}
+.bootstrap-checkbox > button.btn.displayAsButton > span.icon{
+	margin: 2px 4px;
+}
+.bootstrap-checkbox > button.btn.displayAsButton > span.label-prepend-checkbox{
+	padding:0 4px 0 8px;
+}
+.bootstrap-checkbox > button.btn.btn-large{
+	padding:10px 0 6px 2px;
+	width:36px;
+}
+.bootstrap-checkbox > button.btn.btn-small{
+	padding:5px 0 3px 1px;
+	width:24px;
+}
+.bootstrap-checkbox > button.btn.btn-mini{
+	padding:4px 0 1px 1px;
+	width:20px;
+}
+
+.bootstrap-checkbox > .btn.btn-link{
+ 	text-decoration:none;
+}
+
+label.bootstrap-checkbox.disabled{
+	cursor:default;
+	color:#666;
+}
+
+.bootstrap-checkbox > .label-prepend-checkbox{
+	padding-right:4px;
+}
+
+.bootstrap-checkbox > .label-checkbox{
+	padding-left:4px;
+}
+
+.bootstrap-checkbox.disabled > [class^="label-"],
+.bootstrap-checkbox > .btn[disabled]{
+	cursor:not-allowed;
+}
+
+[class^="cb-icon-"],
+[class*=" cb-icon-"] {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	margin-top: 1px;
+	*margin-right: .3em;
+	line-height: 14px;
+	vertical-align: text-top;
+	background-image: url("../img/icons.png");
+	background-position: 14px 14px;
+	background-repeat: no-repeat;
+}
+
+.bootstrap-checkbox button.btn > span.cb-icon-check,
+.bootstrap-checkbox.disabled button.btn:hover > span.cb-icon-check,
+.bootstrap-checkbox.disabled button.btn:active > span.cb-icon-check{
+	background-position: 0 -1px;
+}
+.bootstrap-checkbox button.btn:hover > span.cb-icon-check,
+.bootstrap-checkbox button.btn:focus > span.cb-icon-check,
+.bootstrap-checkbox button.btn:active > span.cb-icon-check{
+	background-position: 0 -25px;
+}
+.bootstrap-checkbox button.btn > span.cb-icon-check-empty,
+.bootstrap-checkbox.disabled button.btn:hover > span.cb-icon-check-empty,
+.bootstrap-checkbox.disabled button.btn:active > span.cb-icon-check-empty{
+	background-position: -24px -1px;
+}
+.bootstrap-checkbox button.btn:hover > span.cb-icon-check-empty,
+.bootstrap-checkbox button.btn:focus > span.cb-icon-check-empty,
+.bootstrap-checkbox button.btn:active > span.cb-icon-check-empty{
+	background-position: -24px -25px;
+}
+
+.bootstrap-checkbox button.btn > span.cb-icon-check-indeterminate,
+.bootstrap-checkbox.disabled button.btn:hover > span.cb-icon-check-indeterminate,
+.bootstrap-checkbox.disabled button.btn:active > span.cb-icon-check-indeterminate{
+	background-position: -48px -1px;
+}
+.bootstrap-checkbox button.btn:hover > span.cb-icon-check-indeterminate,
+.bootstrap-checkbox button.btn:focus > span.cb-icon-check-indeterminate,
+.bootstrap-checkbox button.btn:active > span.cb-icon-check-indeterminate{
+	background-position: -48px -25px;
+}
