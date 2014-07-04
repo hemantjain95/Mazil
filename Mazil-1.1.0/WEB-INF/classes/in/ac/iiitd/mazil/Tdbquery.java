@@ -33,7 +33,7 @@ THE SOFTWARE.
 and display the information of parts of the email using rdf model
 */
 
-package mainclasses;
+package in.ac.iiitd.mazil;
 import static com.hp.hpl.jena.query.ReadWrite.READ ;
 import static com.hp.hpl.jena.query.ReadWrite.WRITE ;
 import com.hp.hpl.jena.query.ReadWrite ;

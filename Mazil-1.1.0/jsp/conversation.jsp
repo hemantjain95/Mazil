@@ -248,11 +248,11 @@ THE SOFTWARE. -->
 
   }
   
-  
+  /*
 	for(int m=0;m<28;m++)
 	{
 		System.out.println(currentattributes[counter][m]);
-	}
+	}*/
   	String subquery;
   	subquery=request.getParameter("sub");
   	if(subquery!=null)
@@ -942,7 +942,7 @@ if(subquery!=null)
            
             <table class="table table-striped">
        
- <%@ page import="mainclasses.Tdbquery"  %>
+ <%@ page import="in.ac.iiitd.mazil.Tdbquery"  %>
   <%@page import="java.io.*" %>   
  <%@page import="java.text.*" %>
  <%@page import="java.util.*" %>

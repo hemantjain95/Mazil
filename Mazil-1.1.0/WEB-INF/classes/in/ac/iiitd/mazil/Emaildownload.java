@@ -31,7 +31,7 @@ THE SOFTWARE.
  */
 
 
-package mainclasses;
+package in.ac.iiitd.mazil;
 import java.io.*;
 import java.util.*;
 import javax.mail.*;
@@ -43,59 +43,54 @@ import static com.hp.hpl.jena.query.ReadWrite.READ ;
 import static com.hp.hpl.jena.query.ReadWrite.WRITE ;
 import com.hp.hpl.jena.query.ReadWrite ;
 import com.hp.hpl.jena.query.Dataset ;
-import com.hp.hpl.jena.query.Query ;
-import com.hp.hpl.jena.query.QueryExecution ;
-import com.hp.hpl.jena.query.QueryExecutionFactory ;
-import com.hp.hpl.jena.query.QueryFactory ;
-import com.hp.hpl.jena.query.QuerySolution ;
-import com.hp.hpl.jena.query.ResultSet ;
 import com.hp.hpl.jena.tdb.TDBFactory ;
-import mainclasses.property.*; // import this to add properties as entities of email
+import in.ac.iiitd.mazil.EMAILRDF; // import this to add properties as entities of email
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.*;
-import com.hp.hpl.jena.vocabulary.*;
-import com.hp.hpl.jena.datatypes.RDFDatatype;
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype;
 import com.hp.hpl.jena.rdf.model.Literal;
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.ResourceFactory;
 
 
-
-public class emaildownload
-{
-  //method to get contents of multipart email
-    private static String getText(Part p) throws MessagingException, IOException 
+public class Emaildownload
+{ 
+	private static boolean textIsHtml = false;
+    //	method to get contents of multipart email
+	private static String getText(Part p) throws MessagingException, IOException 
     {
+        if (p.isMimeType("text/*")) 
+        {
+            String s = (String)p.getContent();
+            textIsHtml = p.isMimeType("text/html");
+            return s;
+        }
+
         if (p.isMimeType("multipart/alternative")) 
         {
+            // prefer html text over plain text
             Multipart mp = (Multipart)p.getContent();
             String text = null;
-            for (int i = 0; i < mp.getCount(); i++) 
+            for (int i = 0; i < mp.getCount(); i++)
             {
                 Part bp = mp.getBodyPart(i);
-                if (bp.isMimeType("text/plain")) 
+                if (bp.isMimeType("text/plain"))
                 {
                     if (text == null)
                         text = getText(bp);
                     continue;
-                } 
+                }
                 else if (bp.isMimeType("text/html")) 
                 {
                     String s = getText(bp);
                     if (s != null)
                         return s;
-                } 
+                }
                 else 
                 {
                     return getText(bp);
                 }
             }
             return text;
-        } 
+        }
         else if (p.isMimeType("multipart/*")) 
         {
             Multipart mp = (Multipart)p.getContent();
@@ -106,38 +101,32 @@ public class emaildownload
                     return s;
             }
         }
-        else
-        {
-            return p.getContent().toString();
-        }  
-        return null; 
-    } 
 
+        return null;
+    }
+   
     public static void mai(String[] arg) throws MessagingException, IOException 
     {
-        String[] credentials=new String[4];int k=0;
+        String[] credentials=new String[4];             //getting the credentials emailid,password,folder of mail and text file name
+        int k=0;
         for (String s: arg) 
         {
             System.out.println(s);
-            System.out.println("hello");
             credentials[k]=s;
             k++;
-	          if(k==4)
-	          break;
+	        if(k==4)
+	            break;
         }
-        System.out.println("yoyoyooyoyo");
-        if(credentials[2].equals("[Gmail]/All")||credentials[2].equals("[Gmail]/Sent"))
-            credentials[2]+=" Mail";
-        System.out.println("hello");
         IMAPFolder folder = null;
         Store store = null;
         String subjec = "nosubject";
         Flag flag = null;
-        String dat="x",encod="x",senderaddr="x",receiveraddr="x",cont="x";
+        String dat="x",encod="x",senderaddr="x",receiveraddr="x",cont="x";//initializing
         //Directory where the tdb files will be stored
-        File EMAILADDRESS = new File("new folder");
+        File EMAILADDRESS = new File("EMAILADDRESS");
         long lastuid=0;
-        long lastvalidity=606896160;
+        long lastvalidity=606896160;        //initializing just for checking uid validity
+        String references="";
         // if the directory does not exist, create it
         if (!EMAILADDRESS.exists()) 
         {
@@ -149,10 +138,7 @@ public class emaildownload
             }
         }
         String directory = "EMAILADDRESS" ;
-        //create the dataset for the tdb store
-        
-       
-        //write to the tdb dataset
+      
         try 
         {   //connecting to the server to download the emails
             Properties props = System.getProperties();
@@ -174,9 +160,9 @@ public class emaildownload
             if(!folder.isOpen())
             folder.open(Folder.READ_WRITE);
             Message[] messages = folder.getMessages();
-            long n=uf.getUIDValidity();
-            System.out.println("UIDvalidity:"+n);
-            int bool=0;
+            long n=uf.getUIDValidity();                 //getting the UIDvalidity of the current folder
+            System.out.println("UIDvalidity:"+n);       
+            int a=0;
             String line;
             String liner[]=new String[2];;
             BufferedReader bfr;    
@@ -184,11 +170,22 @@ public class emaildownload
             String OS = System.getProperty("os.name").toLowerCase();
             System.out.println(OS);
             String content=String.valueOf(n)+System.getProperty("line.separator")+messages.length;
-            String fileName=credentials[3];
+            String fileName="Files"+File.separator+credentials[3];
+            File Files = new File("Files");
+            if (!Files.exists()) 
+            {
+                System.out.println("creating directory: " + Files);
+                boolean result = Files.mkdir();  
+                if(result) 
+                {    
+                    System.out.println("DIR created");  
+                }
+            }
             File file=new File(fileName);       
             if(!file.exists())
             {
 	              System.out.println("filecreated");
+	             
                 file.createNewFile();
             }       
             try
@@ -196,8 +193,8 @@ public class emaildownload
                 bfr=new BufferedReader(new FileReader(file));
                 while((line=bfr.readLine())!=null)
                 {
-                    liner[bool]=line;
-                    bool++;
+                    liner[a]=line;
+                    a++;
                 }
                 while((line=bfr.readLine())!=null)
                 {
@@ -248,6 +245,20 @@ public class emaildownload
                 */
                 //checking for null values to prevent errors
                 //System.out.println("hi");
+                references="";
+                if( msg.getHeader("References")!=null)
+                {
+                	String[] headers = msg.getHeader("References");
+                	System.out.println("headers");
+                	for(int ab=0;ab<headers.length;ab++)
+                		{	 
+                		headers[ab]=headers[ab].replace("\r","");
+                		headers[ab]=headers[ab].replace("\n","");
+                		headers[ab]=headers[ab].replace(" ",",");
+                			references=headers[ab];
+                		}references+=","+msg.getMessageID();
+                	System.out.println(references);
+                }
                 String bcc="",cc="";
                 if(msg.getRecipients(Message.RecipientType.CC)!=null)
                 {   
@@ -518,6 +529,10 @@ public class emaildownload
                 }
                 Dataset ds = TDBFactory.createDataset(directory) ;
                 //create default rdf model
+                  //create the dataset for the tdb store
+        
+       
+                //write to the tdb dataset
                 ds.begin(ReadWrite.WRITE);
                 Model model = ds.getDefaultModel() ;
                 Literal lo = model.createTypedLiteral(finaldatetime, XSDDatatype.XSDdateTime  ); 
@@ -534,6 +549,7 @@ public class emaildownload
                 .addProperty(EMAILRDF.SEND_NAME,sendername)
                 .addProperty(EMAILRDF.ENCODING,encod)
                 .addProperty(EMAILRDF.CONTENT,cont)
+                .addProperty(EMAILRDF.REF,references)
                 //.addProperty(EMAILRDF.DATE,dat)
                 .addProperty(EMAILRDF.FOLDER_NAME,foldername)
                 .addProperty(EMAILRDF.UID,uid)

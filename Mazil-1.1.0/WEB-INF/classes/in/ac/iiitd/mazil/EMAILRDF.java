@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 //To define all the properties needed to make the rdf of the email
 
-package email;
+package in.ac.iiitd.mazil;
 import com.hp.hpl.jena.rdf.model.*;
 
 
@@ -37,6 +37,7 @@ public class EMAILRDF {
     
     //Subject of the mail
     public static final Property MSGID = m.createProperty("MESSAGEID:" );
+    public static final Property REF = m.createProperty("REFERENCES:" );
     public static final Property MAILID = m.createProperty("MAILID:" );
     public static final Property SUBJECT = m.createProperty("SUB:" );
 	//Sender of the mail

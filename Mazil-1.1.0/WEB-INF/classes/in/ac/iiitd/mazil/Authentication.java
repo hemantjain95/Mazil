@@ -2,9 +2,12 @@
 /*  The MIT License (MIT)
 
 Copyright (c) IIIT-DELHI 
+mentor:
+Debajyoti Bera dbera@iiitd.ac.in
+
 authors:
-HEMANT JAIN "hjcooljohny75@gmail.com"
-ANIRUDH NAIN 
+HEMANT JAIN "hemantjain.y12@lnmiit.ac.in"
+ANIRUDH NAIN "anirudh.y12@lnmiit.ac.in"
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -26,7 +29,7 @@ THE SOFTWARE.
  * 
  */
 
-package mainclasses;
+package in.ac.iiitd.mazil;
 import java.util.Properties;
 
 import javax.mail.Folder;
@@ -37,12 +40,11 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.*;
 
-public class authentication 
+public class Authentication 
 {
-    public static int fla=0;
+    public static int flag1=0;
     public static int mai(String args[]) 
     {
-            
         Properties props = System.getProperties();
         props.setProperty("mail.store.protocol", "imaps");
         try 
@@ -60,21 +62,18 @@ public class authentication
             Store store = session.getStore("imaps");
             store.connect("imap.gmail.com", credentials[0], credentials[1]);
             System.out.println(store);
-            fla=1;
-            return fla;
-
-
+            flag1=1;
+            return flag1;
         } 
         catch (NoSuchProviderException e) 
         {
-            fla=0;
-            return fla;
-            
+            flag1=0;
+            return flag1;
         }    
         catch (MessagingException e) 
         {
-            fla=0;
-            return fla;
+            flag1=0;
+            return flag1;
         }
 
     }   

@@ -30,9 +30,9 @@ THE SOFTWARE. -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ page import="mainclasses.Authentication" %>
-<%@ page import="mainclasses.Emaildownload" %>
-<%@ page import="mainclasses.Syncdelete" %>
+<%@ page import="in.ac.iiitd.mazil.Authentication" %>
+<%@ page import="in.ac.iiitd.mazil.Emaildownload" %>
+<%@ page import="in.ac.iiitd.mazil.Syncdelete" %>
 
 <%
 String name=request.getParameter("user");

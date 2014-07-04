@@ -34,7 +34,7 @@ THE SOFTWARE.
 
 
 
-package mainclasses;
+package in.ac.iiitd.mazil;
 import java.io.*;
 import java.util.*;
 
@@ -58,7 +58,7 @@ import com.hp.hpl.jena.query.QuerySolution ;
 import com.hp.hpl.jena.query.ResultSet ;
 import com.hp.hpl.jena.tdb.TDBFactory ;
 
-import mainclasses.property.*; // import this to add properties as entities of email
+import in.ac.iiitd.mazil.EMAILRDF; // import this to add properties as entities of email
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.update.* ;

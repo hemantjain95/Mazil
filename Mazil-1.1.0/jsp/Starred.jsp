@@ -632,7 +632,7 @@ if(subquery!=null)
                                 </form>
                             </div>
                             <!-- /.list-group -->
-                            <a href="Starred.jsp?item=0&sub=<%=querysend%>" class="btn btn-default btn-block">Use this Query!</a>
+                            <a href="Starred.jsp?item=0&sub=<%=querysend%>" class="btn btn-default btn-block">Search among current Results!</a>
 
                         </div>
                         <!-- /.panel-body -->
@@ -645,7 +645,7 @@ if(subquery!=null)
        <%@page import="java.io.*" %>   
  <%@page import="java.text.*" %>
  <%@page import="java.util.*" %>
-             <%@ page import="mainclasses.Tdbquery"  %>
+             <%@ page import="in.ac.iiitd.mazil.Tdbquery"  %>
             <% Tdbquery demo = new Tdbquery();
             Tdbquery dem = new Tdbquery();
             Tdbquery de = new Tdbquery();
