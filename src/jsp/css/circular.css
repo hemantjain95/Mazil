@@ -1,0 +1,22 @@
+.circular {
+	margin-top:150px;
+	margin-left:-200px;
+	width: 175px;
+	height:175px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+ background-image: url('http://qph.is.quoracdn.net/main-thumb-8995894-200-gxoeawryfeysrzciedrrxalghkdyewww.jpeg');
+
+	}
+
+	.circular-1 {
+		margin-top: -175px;
+	margin-left: 500px;
+	width: 175px;
+	height:175px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	 background-image: url('http://qph.is.quoracdn.net/main-thumb-25460383-200-uuazzykjmoejuhbxwrfzbnhtitboixmm.jpeg');
+	}

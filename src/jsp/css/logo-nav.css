@@ -1,0 +1,18 @@
+
+.navbar-fixed-top .nav {
+    padding: 25px 0;
+}
+
+.navbar-fixed-top .navbar-brand {
+	padding: 15px 15px;
+}
+
+@media(min-width:768px) {
+    .navbar-fixed-top .nav {
+        padding: 25px 0;
+    }
+
+    .navbar-fixed-top .navbar-brand {
+        padding: 16px 0;
+    }
+}
