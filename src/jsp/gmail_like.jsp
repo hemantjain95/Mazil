@@ -714,10 +714,7 @@ if(subquery!=null)
  <%@page import="java.io.*" %>   
  <%@page import="java.text.*" %>
  <%@page import="java.util.*" %>
- <%@page import="org.joda.time.*"%>
- <%@page import="org.joda.time.DateTime"%>
-<%@page import="org.joda.time.format.ISODateTimeFormat"%>
-<%@page import="org.joda.time.format.DateTimeFormatter"%> 
+ 
 
             <%  Tdbfullquery demo = new Tdbfullquery();
             
