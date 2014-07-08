@@ -1,2 +1,2 @@
 How To Install Mazil :
-First of all install apache tomcat on your system .then copy the war file in bin folder and put it inside webapps folder of your apache tomcat directory and extract it there .Now start your tomcat server and type this address in your Browser  : "localhost:port/Mazil-1.1.0/jsp/" and your Mazil is ready.
+First of all install apache tomcat on your system .then copy the war file in bin folder and put it inside webapps folder of your apache tomcat directory and extract it there .Now start your tomcat server and type this address in your Browser  : "localhost:port/Mazil-1.0.0/jsp/" and your Mazil is ready.

@@ -124,8 +124,22 @@ public class Emaildownload
         String subjec = "nosubject";
         Flag flag = null;
         String dat="x",encod="x",senderaddr="x",receiveraddr="x",cont="x";//initializing
+        File Mazil = new File(System.getProperty("user.home")+File.separator+"Mazil");
+        if (!Mazil.exists()) 
+        {
+            System.out.println("creating directory: " + Mazil);
+            boolean result = Mazil.mkdir();  
+            if(result) 
+            {    
+                System.out.println("Mazil DIR created");  
+            }
+        }
+        
+        
+        
+        
         //Directory where the tdb files will be stored
-        File EMAILADDRESS = new File("EMAILADDRESS");
+        File EMAILADDRESS = new File(System.getProperty("user.home")+File.separator+"Mazil"+File.separator+"EMAILADDRESS");
         long lastuid=0;
         long lastvalidity=606896160;        //initializing just for checking uid validity
         String references="";
@@ -142,7 +156,7 @@ public class Emaildownload
                 System.out.println("DIR created");  
             }
         }
-        String directory = "EMAILADDRESS" ;
+        String directory = System.getProperty("user.home")+File.separator+"Mazil"+File.separator+"EMAILADDRESS" ;
       
         try 
         {   //connecting to the server to download the emails
@@ -175,17 +189,8 @@ public class Emaildownload
             String OS = System.getProperty("os.name").toLowerCase();
             System.out.println(OS);
             String content=String.valueOf(n)+System.getProperty("line.separator")+messages.length;
-            String fileName="Files"+File.separator+credentials[3];
-            File Files = new File("Files");
-            if (!Files.exists()) 
-            {
-                System.out.println("creating directory: " + Files);
-                boolean result = Files.mkdir();  
-                if(result) 
-                {    
-                    System.out.println("DIR created");  
-                }
-            }
+            String fileName=System.getProperty("user.home")+File.separator+"Mazil"+File.separator+credentials[3];
+           
             File file=new File(fileName);       
             if(!file.exists())
             {

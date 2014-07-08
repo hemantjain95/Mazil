@@ -204,7 +204,7 @@ THE SOFTWARE. -->
   {
 	  if(currentattributes[l]!=null&&! currentattributes[l].equals("")&&previousattributes!=null&&l!=16&&l!=17)
 	  { if(currentattributes[l].equals("huh"))
-	  { System.out.println(l);
+	  { //System.out.println(l);
 		  previousattributes[l]=null;
 	  }
 	  		else	
@@ -212,7 +212,7 @@ THE SOFTWARE. -->
 	  }
   }int pos=0;
   for(int m=0;m<29;m++)
-	{System.out.println("hello"+previousattributes[m]);
+	{//System.out.println("hello"+previousattributes[m]);
 	if(previousattributes[m]!=null&&!previousattributes[m].equals(""))
 		pos=1;
 	}
@@ -303,13 +303,13 @@ THE SOFTWARE. -->
   matter[27]="?a <LINK:> ?o . FILTER regex(?o,'";
   //System.out.println(dateor";
 String[] matteror=new String[8];
-matteror[0]="{?a <SUB:> ?g .FILTER regex(?g,'"+previousattributes[0]+"','i')} UNION {?z <SUB:> ?h .FILTER regex(?h,'"+previousattributes[2]+"','i')} . ";
-matteror[1]="{?a <CONTENT:> ?g .FILTER regex(?g,'"+previousattributes[3]+"','i')} UNION {?z <CONTENT:> ?h .FILTER regex(?h,'"+previousattributes[5]+"','i')} . ";
-matteror[2]="{?a <ATTACHEMENTNAME:> ?g .FILTER regex(?g,'"+previousattributes[6]+"','i')} UNION {?z <ATTACHEMENTNAME:> ?h .FILTER regex(?h,'"+previousattributes[8]+"','i')} . ";
-matteror[3]="{?a <FROMFULL:> ?g .FILTER regex(?g,'"+previousattributes[9]+"','i')} UNION {?z <FROMFULL:> ?h .FILTER regex(?h,'"+previousattributes[11]+"','i')} . ";
-matteror[4]="{?a <TOFULL:> ?g .FILTER regex(?g,'"+previousattributes[12]+"','i')} UNION {?z <TOFULL:> ?h .FILTER regex(?h,'"+previousattributes[14]+"','i')} . ";
-matteror[5]="{?a <CC:> ?g .FILTER regex(?g,'"+previousattributes[18]+"','i')} UNION {?z <CC:> ?h .FILTER regex(?h,'"+previousattributes[20]+"','i')} . ";
-matteror[7]="{?a <BCC:> ?g .FILTER regex(?g,'"+previousattributes[21]+"','i')} UNION {?z <BCC:> ?h .FILTER regex(?h,'"+previousattributes[23]+"','i')} . ";
+matteror[0]="{?a <SUB:> ?g .FILTER regex(?g,'"+previousattributes[0]+"','i')} UNION {?a <SUB:> ?h .FILTER regex(?h,'"+previousattributes[2]+"','i')} . ";
+matteror[1]="{?a <CONTENT:> ?g .FILTER regex(?g,'"+previousattributes[3]+"','i')} UNION {?a <CONTENT:> ?h .FILTER regex(?h,'"+previousattributes[5]+"','i')} . ";
+matteror[2]="{?a <ATTACHEMENTNAME:> ?g .FILTER regex(?g,'"+previousattributes[6]+"','i')} UNION {?a <ATTACHEMENTNAME:> ?h .FILTER regex(?h,'"+previousattributes[8]+"','i')} . ";
+matteror[3]="{?a <FROMFULL:> ?g .FILTER regex(?g,'"+previousattributes[9]+"','i')} UNION {?a <FROMFULL:> ?h .FILTER regex(?h,'"+previousattributes[11]+"','i')} . ";
+matteror[4]="{?a <TOFULL:> ?g .FILTER regex(?g,'"+previousattributes[12]+"','i')} UNION {?a <TOFULL:> ?h .FILTER regex(?h,'"+previousattributes[14]+"','i')} . ";
+matteror[5]="{?a <CC:> ?g .FILTER regex(?g,'"+previousattributes[18]+"','i')} UNION {?a <CC:> ?h .FILTER regex(?h,'"+previousattributes[20]+"','i')} . ";
+matteror[7]="{?a <BCC:> ?g .FILTER regex(?g,'"+previousattributes[21]+"','i')} UNION {?a <BCC:> ?h .FILTER regex(?h,'"+previousattributes[23]+"','i')} . ";
 
 //String query="SELECT ?x WHERE { ?a <SUB:> ?x .";
 String query="";
@@ -326,7 +326,7 @@ for(int j=0;j<8;j++)
 			{	if(flag==1)
 					query=query+".";	
 				flag=1;
-				if(i==0||i==3||i==9||i==10||i==12||i==13||i==6||i==7)
+				if(i==0||i==1||i==4||i==3||i==9||i==10||i==12||i==13||i==6||i==7)
 					query=query+matter[i]+previousattributes[i]+"','i') ";
   				else if(i==24||i==25||i==26)
   					query=query+matter[i]+previousattributes[i]+"')) ";
@@ -358,27 +358,18 @@ for(int i=24;i<29;i++)
 	}
 }	
 query+=" } LIMIT 30";
-String querysub="SELECT ?x WHERE { ?a <SUB:> ?x ."+query;
-String querydate="SELECT ?x WHERE { ?a <DATE:> ?x ."+query;
-String querysendername="SELECT ?x WHERE { ?a <SENDERNAME:> ?x ."+query;
-String querymessageid="SELECT ?x WHERE { ?a <MESSAGEID:> ?x ."+query;
+String querysub="SELECT  DISTINCT  ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx ."+query;
 String querysend="SELECT (?x as ?u) WHERE { ?a <FROM:> ?x ."+query;
 if(subquery!=null)
 {
 	
-	 querysub="SELECT ?x WHERE { ?a <SUB:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querydate="SELECT ?x WHERE { ?a <DATE:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querysendername="SELECT ?x WHERE { ?a <SENDERNAME:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querymessageid="SELECT ?x WHERE { ?a <MESSAGEID:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querysend="SELECT ?x  WHERE { ?a <FROM:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
+	 querysub="SELECT  DISTINCT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx .?a <FROM:> ?u .{"+subquery+"} ."+query;
+	 querysend="SELECT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx .?a <FROM:> ?u .{"+subquery+"} ."+query;
 
 	
 	
 }	
   System.out.println(querysub);
-  System.out.println(querydate);
-  System.out.println(querysendername);
-  System.out.println(querymessageid);
   System.out.println(querysend); 
   %>
     <meta charset="utf-8">
@@ -701,66 +692,63 @@ if(subquery!=null)
    <div  class="table-responsive" style="margin-top:-650px;margin-left:-900px;font-size:15px;width:900px;background-color: #f5f5f5">
            
             <table class="table table-striped">
-       <%@page import="java.io.*" %>   
+      <%@ page import="in.ac.iiitd.mazil.Tdbfullquery "%>
+ <%@page import="java.io.*" %>   
  <%@page import="java.text.*" %>
  <%@page import="java.util.*" %>
-             <%@ page import="in.ac.iiitd.mazil.Tdbquery"  %>
-            <% Tdbquery demo = new Tdbquery();
-            Tdbquery dem = new Tdbquery();
-            Tdbquery de = new Tdbquery();
+            <%  Tdbfullquery demo = new Tdbfullquery();
+            
+            //out.println(value);
+            Tdbfullquery dem = new Tdbfullquery();
+            Tdbfullquery de = new Tdbfullquery();
+            Tdbfullquery d = new Tdbfullquery();
             String[] id =new String[30];
             String[] dat =new String[30];
             String[] nam =new String[30];
-            String[] mailid = new String[30];
+            String[] mailid =new String[30];
             int i;
             if(pos!=1)
-           demo.mai("SELECT ?x WHERE { ?y <FOLDERNAME:> '[Gmail]/Starred' . ?y <SUB:> ?x} LIMIT 30 OFFSET"+value);
+           demo.mai("SELECT  DISTINCT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx. ?a <FOLDERNAME:> '[Gmail]/Starred' } LIMIT 30 OFFSET"+value);
             else
             	demo.mai(querysub+" OFFSET "+value);
             for(i=0;i<30;i++)
-           {   id[i]=Tdbquery.result[i];
+           {   id[i]=Tdbfullquery.subject[i];
            		id[i] = id[i].substring(0, Math.min(id[i].length(), 100));
            }
-           if(pos!=1)
-          dem.mai("SELECT ?x WHERE { ?y <FOLDERNAME:> '[Gmail]/Starred' . ?y <DATE:> ?x} LIMIT 30 OFFSET"+value);
-           else
-           	demo.mai(querydate+" OFFSET "+value);
-           for(i=0;i<30;i++)
-           {   dat[i]=Tdbquery.result[i];
-           if(!dat[i].equals("hi")){
-           dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
-           SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-           Date date = formatter.parse(dat[i]);
-           SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-           System.out.println(formatte.format(date));
-           dat[i]=formatte.format(date);
+            
+            for(i=0;i<30;i++)
+           {   dat[i]=Tdbfullquery.date[i];
+           	   if(!dat[i].equals("hi"))
+           	   {
+                	dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
+                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+                 	Date date = formatter.parse(dat[i]);
+                 	SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                 	System.out.println(formatte.format(date));
+                 	dat[i]=formatte.format(date);
+                }
            }
-           }
-           if(pos!=1)
-           de.mai("SELECT ?x WHERE { ?y <FOLDERNAME:> '[Gmail]/Starred' . ?y <SENDERNAME:> ?x} LIMIT 30 OFFSET"+value);
-           else
-           	demo.mai(querysendername+" OFFSET "+value);
-           for(i=0;i<30;i++)
-           {   nam[i]=Tdbquery.result[i];
+           
+            
+            for(i=0;i<30;i++)
+           {   nam[i]=Tdbfullquery.sendername[i];
            		nam[i] = nam[i].substring(0, Math.min(nam[i].length(), 16));
            }
-           if(pos!=1)
-           demo.mai("SELECT ?x WHERE { ?y <FOLDERNAME:> '[Gmail]/Starred' . ?y <MESSAGEID:> ?x} LIMIT 30 OFFSET"+value);
-           else
-           	demo.mai(querymessageid+" OFFSET "+value);
-           for(i=0;i<30;i++)
-           {   mailid[i]=Tdbquery.result[i];
+           
+            for(i=0;i<30;i++)
+           {   mailid[i]=Tdbfullquery.messageid[i];
            		//mailid[i] = mailid[i].substring(0, Math.min(id[i].length(), 100));
            }
+          
             for(i=0;i<30;i++)
-            { //id[i]=Tdbquery.result[i];
-            	if(!id[i].equals("hi"))
-            	out.println("<tr height='5'><td width='120'style='font-size:15px'>"+nam[i]+"</td><td width='400'>"+"<a href='final.jsp?itemId="+mailid[i]+"'class='button grow' style=' text-decoration: none; color:black;font-size:15px;'>"+"&nbsp&nbsp&nbsp&nbsp"+id[i]+"<hr style='border-color:#E6E6E6;padding:0px;margin:0px'>"+"</a>"+"</td><td width='100' style='font-size:12px'>"+""+dat[i]+"</td>"+"</tr>");
-            	else
-            		break;
-            }	
+            { //id[i]=tdbquery.arr[i];
+            if(!id[i].equals("hi"))
+            	out.println("<tr height='5'><td width='120'style='font-size:15px'>"+nam[i]+"</td><td width='400'>"+"<a href='final.jsp?itemId="+mailid[i]+"' class='button grow' style=' text-decoration: none; color:black;font-size:15px;'>"+"&nbsp&nbsp&nbsp&nbsp"+id[i]+"<hr style='border-color:#E6E6E6;padding:0px;margin:0px'>"+"</a>"+"</td><td width='90' style='font-size:12px'>"+""+dat[i]+"</td>"+"</tr>");
+            else 
+            	break;
+            }i--;	
             %>
-            
+        
             </table>
           </div>
          

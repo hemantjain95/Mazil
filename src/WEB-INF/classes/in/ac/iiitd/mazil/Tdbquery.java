@@ -36,6 +36,7 @@ and display the information of parts of the email using rdf model
 package in.ac.iiitd.mazil;
 import static com.hp.hpl.jena.query.ReadWrite.READ ;
 import static com.hp.hpl.jena.query.ReadWrite.WRITE ;
+
 import com.hp.hpl.jena.query.ReadWrite ;
 import com.hp.hpl.jena.query.Dataset ;
 import com.hp.hpl.jena.query.Query ;
@@ -48,6 +49,7 @@ import com.hp.hpl.jena.tdb.TDBFactory ;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.*;
 import com.hp.hpl.jena.vocabulary.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +57,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import javax.mail.MessagingException;
+
 import com.hp.hpl.jena.rdf.model.Model ;
 
 
@@ -64,7 +68,7 @@ public class Tdbquery extends Object {
 	public  void  mai (String s) throws MessagingException, IOException 
 	{
 	    
-	    String directory ="EMAILADDRESS" ;         						   //directory where data is stored
+	    String directory =System.getProperty("user.home")+File.separator+"Mazil"+File.separator+"EMAILADDRESS" ;         						   //directory where data is stored
 	    Dataset ds = TDBFactory.createDataset(directory) ;
 	    ds.begin(ReadWrite.READ) ;											//reading the database
 	    Model model = ds.getDefaultModel() ;
@@ -96,8 +100,8 @@ public class Tdbquery extends Object {
 	    }
 	    for(int j=i;j<30;j++)
 		    result[j]="hi";													//if the query have less than 30 results others are initialised by hi
-	    for(i=0;i<30;i++)
-	        System.out.println(result[i]);
+	    //for(i=0;i<30;i++)
+	        //System.out.println(result[i]);
 	}
 }
 

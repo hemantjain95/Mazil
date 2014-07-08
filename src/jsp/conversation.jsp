@@ -336,7 +336,7 @@ THE SOFTWARE. -->
 	  { 
 		  if(currentattributes[ab][l].equals("huh"))
 	  	  {
-			  System.out.println(l);				//if user clicks cross on filter its value will be saved as huh and then here we check if value is huh than we make it null 
+			  //System.out.println(l);				//if user clicks cross on filter its value will be saved as huh and then here we check if value is huh than we make it null 
 		  	  previousattributes[ab][l]=null;
 	  	  }
 	  	  else	
@@ -347,7 +347,7 @@ THE SOFTWARE. -->
   	int pos=0;
   	for(int m=0;m<29;m++)
 	{
-  		System.out.println("hello"+previousattributes[counter][m]);
+  		//System.out.println("hello"+previousattributes[counter][m]);
 		if(previousattributes[counter][m]!=null&&!previousattributes[counter][m].equals(""))	//if there are filters than pos becomes 1 and other query will be used
 			pos=1;
 	}
@@ -561,13 +561,13 @@ THE SOFTWARE. -->
   	}
   	//System.out.println(dateor";
 	//for or queries will be different
-	matteror[counter][0]="{?ab"+counter+" <SUB:> ?g .FILTER regex(?g,'"+previousattributes[counter][0]+"','i')} UNION {?z <SUB:> ?h .FILTER regex(?h,'"+previousattributes[counter][2]+"','i')} . ";
-	matteror[counter][1]="{?ab"+counter+" <CONTENT:> ?g .FILTER regex(?g,'"+previousattributes[counter][3]+"','i')} UNION {?z <CONTENT:> ?h .FILTER regex(?h,'"+previousattributes[counter][5]+"','i')} . ";
-	matteror[counter][2]="{?ab"+counter+" <ATTACHEMENTNAME:> ?g .FILTER regex(?g,'"+previousattributes[counter][6]+"','i')} UNION {?z <ATTACHEMENTNAME:> ?h .FILTER regex(?h,'"+previousattributes[counter][8]+"','i')} . ";
-	matteror[counter][3]="{?ab"+counter+" <FROMFULL:> ?g .FILTER regex(?g,'"+previousattributes[counter][9]+"','i')} UNION {?z <FROMFULL:> ?h .FILTER regex(?h,'"+previousattributes[counter][11]+"','i')} . ";
-	matteror[counter][4]="{?ab"+counter+" <TOFULL:> ?g .FILTER regex(?g,'"+previousattributes[counter][12]+"','i')} UNION {?z <TOFULL:> ?h .FILTER regex(?h,'"+previousattributes[counter][14]+"','i')} . ";
-	matteror[counter][5]="{?ab"+counter+" <CC:> ?g .FILTER regex(?g,'"+previousattributes[counter][18]+"','i')} UNION {?z <CC:> ?h .FILTER regex(?h,'"+previousattributes[counter][20]+"','i')} . ";
-	matteror[counter][7]="{?ab"+counter+" <BCC:> ?g .FILTER regex(?g,'"+previousattributes[counter][21]+"','i')} UNION {?z <BCC:> ?h .FILTER regex(?h,'"+previousattributes[counter][23]+"','i')} . ";
+	matteror[counter][0]="{?ab"+counter+" <SUB:> ?g .FILTER regex(?g,'"+previousattributes[counter][0]+"','i')} UNION {?ab <SUB:> ?h .FILTER regex(?h,'"+previousattributes[counter][2]+"','i')} . ";
+	matteror[counter][1]="{?ab"+counter+" <CONTENT:> ?g .FILTER regex(?g,'"+previousattributes[counter][3]+"','i')} UNION {?ab <CONTENT:> ?h .FILTER regex(?h,'"+previousattributes[counter][5]+"','i')} . ";
+	matteror[counter][2]="{?ab"+counter+" <ATTACHEMENTNAME:> ?g .FILTER regex(?g,'"+previousattributes[counter][6]+"','i')} UNION {?ab <ATTACHEMENTNAME:> ?h .FILTER regex(?h,'"+previousattributes[counter][8]+"','i')} . ";
+	matteror[counter][3]="{?ab"+counter+" <FROMFULL:> ?g .FILTER regex(?g,'"+previousattributes[counter][9]+"','i')} UNION {?ab <FROMFULL:> ?h .FILTER regex(?h,'"+previousattributes[counter][11]+"','i')} . ";
+	matteror[counter][4]="{?ab"+counter+" <TOFULL:> ?g .FILTER regex(?g,'"+previousattributes[counter][12]+"','i')} UNION {?ab <TOFULL:> ?h .FILTER regex(?h,'"+previousattributes[counter][14]+"','i')} . ";
+	matteror[counter][5]="{?ab"+counter+" <CC:> ?g .FILTER regex(?g,'"+previousattributes[counter][18]+"','i')} UNION {?ab <CC:> ?h .FILTER regex(?h,'"+previousattributes[counter][20]+"','i')} . ";
+	matteror[counter][7]="{?ab"+counter+" <BCC:> ?g .FILTER regex(?g,'"+previousattributes[counter][21]+"','i')} UNION {?ab <BCC:> ?h .FILTER regex(?h,'"+previousattributes[counter][23]+"','i')} . ";
 
 	//String query="SELECT ?x WHERE { ?a <SUB:> ?x .";
 	String query="";
@@ -639,24 +639,16 @@ query+=x;
 
 
 session.setAttribute("oldcounter",counter);
-String querysub="SELECT DISTINCT ?x WHERE { ?a <SUB:> ?x .?a <REFERENCES:> ?z . "+query+"}LIMIT 30";			//different queries
-String querydate="SELECT DISTINCT ?x WHERE { ?a <DATE:> ?x .?a <REFERENCES:> ?z ."+query+"}LIMIT 30";
-String querysendername="SELECT DISTINCT ?x WHERE { ?a <SENDERNAME:> ?x .?a <REFERENCES:> ?z ."+query+"}LIMIT 30";
-String querymessageid="SELECT DISTINCT  ?x WHERE { ?a <MESSAGEID:> ?x .?a <REFERENCES:> ?z ."+query+"}LIMIT 30";
+String querysub="SELECT DISTINCT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx .?a <REFERENCES:> ?z . "+query+"}LIMIT 30";			//different queries
 String querysend="SELECT (?x as ?u) WHERE { ?a <FROM:> ?x .?a <REFERENCES:> ?z ."+query+"}LIMIT 30";
 if(subquery!=null)
 {
 	
 	 querysub="SELECT DISTINCT ?x WHERE { ?a <SUB:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querydate="SELECT ?x WHERE { ?a <DATE:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querysendername="SELECT ?x WHERE { ?a <SENDERNAME:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
-	 querymessageid="SELECT ?x WHERE { ?a <MESSAGEID:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
 	 querysend="SELECT ?x  WHERE { ?a <FROM:> ?x .?a <FROM:> ?u .{"+subquery+"} ."+query;
 }	
   System.out.println(querysub);
-  System.out.println(querydate);
-  System.out.println(querysendername);
-  System.out.println(querymessageid);
+
   System.out.println(querysend); 
   %>
     <meta charset="utf-8">
@@ -766,8 +758,8 @@ if(subquery!=null)
      </div>
      </div> 
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" style="margin-top:0px">
-          <a href="gmail_like.jsp?item=<%=value-30%>" class="classname" style=" margin-top:20px;margin-left:800px;"><p> < </p></a>
-			<a href="gmail_like.jsp?item=<%=value+30%>" class="classname1" > > </a>
+          <a href="conversation.jsp?item=<%=value-30%>&counter=<%=0%>" class="classname" style=" margin-top:20px;margin-left:800px;"><p> < </p></a>
+			<a href="conversation.jsp?item=<%=value+30%>&counter=<%=0%>" class="classname1" > > </a>
      <h1 class="page-header" style=" margin-top:-40px;">Conversations</h1>   
      <h4 class="page-header" style=" margin-top:-50px; margin-left:720px;"><%out.println(value+"-"+value1); %></h4>  
         
@@ -967,74 +959,64 @@ if(subquery!=null)
           <div  class="table-responsive" style="margin-top:-650px;margin-left:-940px;font-size:15px;width:900px;background-color: #f5f5f5">
            
             <table class="table table-striped">
-       
- <%@ page import="in.ac.iiitd.mazil.Tdbquery"  %>
-  <%@page import="java.io.*" %>   
+
+         
+         <%@ page import="in.ac.iiitd.mazil.Tdbfullquery "%>
+ <%@page import="java.io.*" %>   
  <%@page import="java.text.*" %>
  <%@page import="java.util.*" %>
- <%
- 	 Tdbquery instance1 = new Tdbquery();
-     Tdbquery instance2 = new Tdbquery();
-     Tdbquery instance3 = new Tdbquery();
- 	 Tdbquery instance4 = new Tdbquery();
+            <%  Tdbfullquery demo = new Tdbfullquery();
+            
+            //out.println(value);
+            Tdbfullquery dem = new Tdbfullquery();
+            Tdbfullquery de = new Tdbfullquery();
+            Tdbfullquery d = new Tdbfullquery();
+            String[] id =new String[30];
+            String[] dat =new String[30];
+            String[] nam =new String[30];
+            String[] mailid =new String[30];
+            int i;
+            if(pos!=1)
+           demo.mai("SELECT DISTINCT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx. ?a <REFERENCES:> ?z .FILTER regex(?z,'<','i')} LIMIT 30 OFFSET"+value);
+            else
+            	demo.mai(querysub+" OFFSET "+value);
+            for(i=0;i<30;i++)
+           {   id[i]=Tdbfullquery.subject[i];
+           		id[i] = id[i].substring(0, Math.min(id[i].length(), 100));
+           }
+            
+            for(i=0;i<30;i++)
+           {   dat[i]=Tdbfullquery.date[i];
+           	   if(!dat[i].equals("hi"))
+           	   {
+                	dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
+                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+                 	Date date = formatter.parse(dat[i]);
+                 	SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                 	System.out.println(formatte.format(date));
+                 	dat[i]=formatte.format(date);
+                }
+           }
            
- 	 String[] id =new String[30];
-     String[] dat =new String[30];
-     String[] nam =new String[30];
-     String[] mailid =new String[30];
-     int i;
-     if(pos!=1&&counter==0)
-     	instance1.mai("SELECT ?x WHERE { ?y <REFERENCES:> ?z .FILTER regex(?z,'<','i'). ?y <SUB:> ?x} LIMIT 30 OFFSET"+value);
-     else
-     	instance1.mai(querysub+" OFFSET "+value);
-     for(i=0;i<30;i++)
-     {
-   		id[i]=Tdbquery.result[i];
-        id[i] = id[i].substring(0, Math.min(id[i].length(), 100));
-     }
-     if(pos!=1&&counter==0)
-     	instance2.mai("SELECT ?x WHERE { ?y <REFERENCES:> ?z .FILTER regex(?z,'<','i') . ?y <DATE:> ?x} LIMIT 30 OFFSET"+value);
-     else
-        instance2.mai(querydate+" OFFSET "+value);
-     for(i=0;i<30;i++)
-     {  
-    	 dat[i]=Tdbquery.result[i];
-    	 if(!dat[i].equals("hi")){
-    	 dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
-          SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-          Date date = formatter.parse(dat[i]);
-          SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-          System.out.println(formatte.format(date));
-          dat[i]=formatte.format(date);
-    	 }
-     }
-     if(pos!=1&&counter==0)
-    	 instance3.mai("SELECT ?x WHERE { ?y <REFERENCES:> ?z .FILTER regex(?z,'<','i') . ?y <SENDERNAME:> ?x} LIMIT 30 OFFSET"+value);
-     else
-    	 instance2.mai(querysendername+" OFFSET "+value);
-     for(i=0;i<30;i++)
-     {
-    	 nam[i]=Tdbquery.result[i];
-    	 nam[i] = nam[i].substring(0, Math.min(nam[i].length(), 16));
-     }
-     if(pos!=1&&counter==0)
-     	instance1.mai("SELECT ?x WHERE {?y <REFERENCES:> ?z .FILTER regex(?z,'<','i') . ?y <MESSAGEID:> ?x} LIMIT 30 OFFSET"+value);
-     else
-     	instance1.mai(querymessageid+" OFFSET "+value	);
-     for(i=0;i<30;i++)
-     {   
-    	 mailid[i]=Tdbquery.result[i];
-         //mailid[i] = mailid[i].substring(0, Math.min(id[i].length(), 100));
-     }
-     for(i=0;i<30;i++)
-     {
-    	 //id[i]=Tdbquery.result[i];
-         if(!id[i].equals("hi"))
-           	out.println("<tr height='5'><td width='120'style='font-size:15px'>"+nam[i]+"</td><td width='400'>"+"<a href='convresult.jsp?itemId="+mailid[i]+"' class='button grow' style=' text-decoration: none; color:black;font-size:15px;'>"+"&nbsp&nbsp&nbsp&nbsp"+id[i]+"<hr style='border-color:#E6E6E6;padding:0px;margin:0px'>"+"</a>"+"</td><td width='90' style='font-size:12px'>"+""+dat[i]+"</td>"+"</tr>");
-         else 
-           	break;
-     }i--;	
-    %>
+            
+            for(i=0;i<30;i++)
+           {   nam[i]=Tdbfullquery.sendername[i];
+           		nam[i] = nam[i].substring(0, Math.min(nam[i].length(), 16));
+           }
+           
+            for(i=0;i<30;i++)
+           {   mailid[i]=Tdbfullquery.messageid[i];
+           		//mailid[i] = mailid[i].substring(0, Math.min(id[i].length(), 100));
+           }
+          
+            for(i=0;i<30;i++)
+            { //id[i]=tdbquery.arr[i];
+            if(!id[i].equals("hi"))
+            	out.println("<tr height='5'><td width='120'style='font-size:15px'>"+nam[i]+"</td><td width='400'>"+"<a href='convresult.jsp?itemId="+mailid[i]+"' class='button grow' style=' text-decoration: none; color:black;font-size:15px;'>"+"&nbsp&nbsp&nbsp&nbsp"+id[i]+"<hr style='border-color:#E6E6E6;padding:0px;margin:0px'>"+"</a>"+"</td><td width='90' style='font-size:12px'>"+""+dat[i]+"</td>"+"</tr>");
+            else 
+            	break;
+            }i--;	
+            %>
            
             </table>
           </div>
