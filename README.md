@@ -1,4 +1,4 @@
-Mazil
+About Mazil:
 =====
 
 Mazil is a web-app which helps you to search mails better and in an extensive manner . You can also use it to navigate through your mails even if you are offline . It use Imap protocol and imap java library to download the mails from your email server .Then it parse it and stores it  in form of RDF Triples . Apache jena is used to convert the mails into RDF and Apache TDB is used to store them. Then an UI takes the input from  user and query it using Sparql .
