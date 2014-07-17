@@ -34,7 +34,7 @@ THE SOFTWARE. -->
   String[] attributesnames=new String[30];
   String[] matter=new String[30];
   String[] matteror=new String[8];
-  
+	
   previousattributes[0]=(String)session.getAttribute("previousattributes0");		//getting the previous attributes which were set in previous webpage
   previousattributes[1]=(String)session.getAttribute("previousattributes1");
   previousattributes[2]=(String)session.getAttribute("previousattributes2");
@@ -476,7 +476,7 @@ if(subquery!=null)
             <li><a href="gmail_like.jsp?item=<%=0%>">E-Mails</a></li>
            
             <li><a href="help.jsp">Help</a></li>
-            <li><a href="index.jsp">Logout</a></li>
+            <li><a href="Logout.jsp">Logout</a></li>
           </ul>
           <form class="navbar-form navbar-right" onsubmit="action='Search.jsp'" method="get">
             <input type="text" class="form-control" placeholder="Search..." name="search">

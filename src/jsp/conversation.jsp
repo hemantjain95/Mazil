@@ -351,6 +351,7 @@ THE SOFTWARE. -->
 		if(previousattributes[counter][m]!=null&&!previousattributes[counter][m].equals(""))	//if there are filters than pos becomes 1 and other query will be used
 			pos=1;
 	}
+  	System.out.println(pos);
 	session.setAttribute("previousattributes0a0",previousattributes[0][0]);		//now setting the attributes which can be accesed on the next page
   	session.setAttribute("previousattributes0a1",previousattributes[0][1]);
   	session.setAttribute("previousattributes0a2",previousattributes[0][2]);
@@ -777,7 +778,7 @@ if(subquery!=null)
       <a href="gmail_like.jsp?item=<%=value%>" >Emails</a> 
     </li>
     <li class=active > 
-      <a href=# >Conversation</a> 
+      <a href="conversation.jsp?item=<%=0%>&counter=<%=0 %>" >Conversation</a> 
     </li>
    
   </ul>
@@ -976,7 +977,7 @@ if(subquery!=null)
             String[] nam =new String[30];
             String[] mailid =new String[30];
             int i;
-            if(pos!=1)
+            if(pos!=1&&counter==0)
            demo.mai("SELECT DISTINCT ?x ?ax ?bx ?cx WHERE { ?a <SUB:> ?x .?a <DATE:> ?ax .?a <SENDERNAME:> ?bx . ?a <MESSAGEID:> ?cx. ?a <REFERENCES:> ?z .FILTER regex(?z,'<','i')} LIMIT 30 OFFSET"+value);
             else
             	demo.mai(querysub+" OFFSET "+value);
@@ -990,7 +991,8 @@ if(subquery!=null)
            	   if(!dat[i].equals("hi"))
            	   {
                 	dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
-                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+                	dat[i] = dat[i].replace(":","");
+                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HHmmssz");
                  	Date date = formatter.parse(dat[i]);
                  	SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                  	System.out.println(formatte.format(date));

@@ -183,7 +183,7 @@ public class Emaildownload
             System.out.println("UIDvalidity:"+n);       
             int a=0;
             String line;
-            String liner[]=new String[2];;
+            String liner[]=new String[2];
             BufferedReader bfr;    
             //bfr=new BufferedReader(new InputStreamReader(System.in));
             String OS = System.getProperty("os.name").toLowerCase();

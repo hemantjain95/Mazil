@@ -26,9 +26,16 @@ THE SOFTWARE. -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="java.io.*,java.util.*" %>
+    <%@ page import="java.io.*"%>
+	<%@ page import="javax.servlet.*"%>
+	<%@ page import="javax.servlet.http.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<%Cookie cookie = null;
+Cookie[] cookies = null;
+// Get an array of Cookies associated with this domain
+cookies = request.getCookies(); %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ page import="in.ac.iiitd.mazil.Authentication" %>
 <%@ page import="in.ac.iiitd.mazil.Emaildownload" %>
@@ -50,17 +57,51 @@ id[1]=pass;
 mailauthenticator[0]=name;
 mailauthenticator[1]=pass;
 int i=Authentication.mai(mailauthenticator);		//to validate email Id and password
+//int i=1;
 System.out.println("hiii");
 System.out.println(i);
 String site;
+int k=0;
+String test=(String)session.getAttribute("test");
+System.out.println(test);
+if(test==null)
+	k=1;
+
+
+
+
 if(i==1)					//if ok then i becomes 1 and redirected to another page
 { 
 	site ="gmail_like.jsp?item="+j;
+	System.out.println("hiii2");
+	Cookie firstName = new Cookie("ID",id[0]);
+	Cookie lastName = new Cookie("PASS",id[1]);
+
+	// Set expiry date after 24 Hrs for both the cookies.
+	//firstName.setMaxAge(60*60*24); 
+	//lastName.setMaxAge(60*60*24); 
+
+	// Add both the cookies in the response header.
+	response.addCookie( firstName );
+	response.addCookie( lastName );
+
+	// Set response content type
+	response.setContentType("text/html");
+	
+	
+	session.setAttribute("test","hi");
+
+
+
+	
+	
+	if(k==1)
+	{System.out.println("hiii3");
 	Thread thread1 = new Thread()
 	{
     	public void run()
-    	{
-		Emaildownload instance1=new Emaildownload();
+    	{	
+    			Emaildownload instance1=new Emaildownload();
 		id[2]="inbox";
 		id[3]="inbox.txt";
 		try
@@ -145,19 +186,7 @@ if(i==1)					//if ok then i becomes 1 and redirected to another page
 		System.out.println("Emaildownload Sent Mail Running");
 
 
-		try
-		{
-			Emaildownload instance7=new Emaildownload();
-			id[2]="[Gmail]/All Mail";
-			id[3]="All.txt";
-			Emaildownload.mai(id);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}   
-		System.out.println("Emaildownload All Mail Running");
-
+		
 
 		try
 		{
@@ -228,19 +257,7 @@ if(i==1)					//if ok then i becomes 1 and redirected to another page
 		System.out.println("Sync Sent Mail Running");
 	
 
-		try
-		{
-			Syncdelete instance6=new Syncdelete();
-			id[2]="inbox";
-			id[3]="[Gmail]/All Mail";
-			Syncdelete.mai(id);
-		}
-		catch (Exception e) 
-		{	
-			e.printStackTrace();
-		}   
-		System.out.println("Sync All Mail Running");
-
+		
 
 		try
 		{
@@ -254,10 +271,14 @@ if(i==1)					//if ok then i becomes 1 and redirected to another page
 			e.printStackTrace();
 		}   
 		System.out.println("Sync Trash Running");
-		}  
+			
+      }  
 	};
 	thread1.start();
-}
+	}
+}																																																																																																																														
+	
+
 else
 	site = "index.jsp";     		//if password authentication fails then redirected to first page
 // New location to be redirected

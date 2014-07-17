@@ -1,0 +1,5 @@
+<Context><Manager className="org.apache.catalina.session.StandardManager"
+  pathname=""></Manager>
+
+<Manager pathname="" />
+</Context>

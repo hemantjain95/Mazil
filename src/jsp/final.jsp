@@ -57,8 +57,9 @@ dem.mai("SELECT ?x WHERE { ?y <MESSAGEID:> '"+s+ "' . ?y <DATE:> ?x} LIMIT 1 ");
 id[0]=Tdbquery.result[0];
 if(!id[0].equals("hi")){
 id[0] = id[0].substring(0, Math.min(id[0].length(), 25));
-SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-Date date = formatter.parse(id[0]);
+id[0] = id[0].replace(":","");
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HHmmssz");
+	Date date = formatter.parse(id[0]);
 SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
 id[0]=formatte.format(date);}

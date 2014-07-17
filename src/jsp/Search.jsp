@@ -746,7 +746,8 @@ if(subquery!=null)
            	   if(!dat[i].equals("hi"))
            	   {
                 	dat[i] = dat[i].substring(0, Math.min(dat[i].length(), 25));
-                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+                	dat[i] = dat[i].replace(":","");
+                 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HHmmssz");
                  	Date date = formatter.parse(dat[i]);
                  	SimpleDateFormat formatte = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                  	System.out.println(formatte.format(date));

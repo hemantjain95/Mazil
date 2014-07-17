@@ -25,7 +25,47 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. -->
 <!DOCTYPE html>
 <html lang="en">
+ <%@ page import="java.io.*,java.util.*" %>
+    <%@ page import="java.io.*"%>
+	<%@ page import="javax.servlet.*"%>
+	<%@ page import="javax.servlet.http.*"%>
+	<%int flag=0;
+	
 
+
+	String test=(String)session.getAttribute("test");
+	System.out.println(test);
+	String id="",pass="";
+	Cookie cookie = null;
+	  Cookie[] cookies = null;
+    // Get an array of Cookies associated with this domain
+    cookies = request.getCookies();
+    if( cookies != null ){
+        System.out.println("Found Cookies Name and Value");
+        for (int i = 0; i < cookies.length; i++){
+           cookie = cookies[i];
+           System.out.println("Name : " + cookie.getName( ));
+           System.out.println("Value: " + cookie.getValue( ));
+           if(cookie.getName().equals("ID"))
+           {	id=cookie.getValue( );
+           		flag=1;
+           }
+           if(cookie.getName().equals("PASS"))
+           {	pass=cookie.getValue( );
+           		
+           }
+        }
+        String site;
+        if(flag==1)
+        { 	
+ 	   site ="Backend.jsp?user="+id+"&password="+pass;
+ 	   response.setStatus(response.SC_MOVED_TEMPORARILY);
+ 	   response.setHeader("Location", site);
+        }
+     }else{
+         System.out.println("no cookies");
+     }
+    	%>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
